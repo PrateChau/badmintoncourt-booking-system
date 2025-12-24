@@ -14,8 +14,6 @@ data class Location(
     @Column(nullable = false)
     val address: String,
 
-    val imageUrl: String? = null,
-
     // Many locations to one admin (User)
     @ManyToOne
     @JoinColumn(name = "admin_id", nullable = false)
