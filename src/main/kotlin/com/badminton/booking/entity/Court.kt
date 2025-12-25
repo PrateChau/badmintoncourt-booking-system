@@ -11,8 +11,6 @@ data class Court(
     @Column(nullable = false)
     val name: String,
 
-    val imageUrl: String? = null,
-
     @Column(nullable = false)
     val openTime: String, // e.g., "07:00"
 
