@@ -12,7 +12,7 @@ import com.badminton.booking.repository.UserRepository
 import com.badminton.booking.service.AdminCourtRegistrationService
 import org.springframework.stereotype.Service
 
-@Service
+
 class AdminCourtRegistrationServiceImpl(
     private val userRepository: UserRepository,
     private val locationRepository: LocationRepository,
