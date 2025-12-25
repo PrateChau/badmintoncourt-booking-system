@@ -25,7 +25,7 @@ class AdminServiceImpl(
 
     override fun getCourtsForLocation(locationId: Long): List<CourtBriefResponse> {
         return courtRepository.findByLocationId(locationId).map {
-            CourtBriefResponse(it.id, it.name, it.imageUrl, it.openTime, it.closeTime)
+            CourtBriefResponse(it.id, it.name,  it.openTime, it.closeTime)
         }
     }
 }
