@@ -27,7 +27,7 @@ data class Booking(
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    val status: BookingStatus = BookingStatus.BOOKED,
+    var status: BookingStatus = BookingStatus.BOOKED,
 
     @Column(nullable = false)
     val canModify: Boolean = true // Allow one modification
