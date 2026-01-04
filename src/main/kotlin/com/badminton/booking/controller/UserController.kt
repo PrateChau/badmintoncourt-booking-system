@@ -4,6 +4,8 @@ import com.badminton.booking.dto.CancelBookingResponse
 import com.badminton.booking.dto.ErrorResponse
 import com.badminton.booking.dto.UserBookingResponse
 import com.badminton.booking.service.UserService
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -12,16 +14,24 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
+@Tag(name = "User Management", description = "APIs for user operations")
 @RestController
 @RequestMapping("/api/users")
 class UserController(
     private val userService: UserService
 ) {
-
+    @Operation(
+        summary = "Fetch User Booking Details",
+        description = "Fetch booking details for a user using their mobile number."
+    )
     @GetMapping("/details")
     fun getUserBookingDetails(@RequestParam mobileNumber: String): UserBookingResponse =
         userService.getUserBookingDetails(mobileNumber)
 
+    @Operation(
+        summary = "Cancel Booking",
+        description = "Cancel a specific booking using user mobile number and booking id."
+    )
     @PostMapping("/bookings/{bookingId}/cancel")
     fun cancelBooking(
         @RequestParam mobileNumber: String,
