@@ -5,5 +5,7 @@ import com.badminton.booking.entity.User
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface LocationRepository : JpaRepository<Location, Long> {
+    fun countByAdmin(admin: User): Long
+
     fun findByAdmin(admin: User): List<Location>
 }
