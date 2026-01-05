@@ -71,9 +71,9 @@ class CourtBookingServiceImpl(
     override fun bookCourt(request: BookCourtRequest): BookCourtResult {
         val user = userRepository.findByMobileNumber(request.mobileNumber)
             ?: throw IllegalArgumentException("User not found.")
-        val court = courtRepository.findById(request.courtId)
+        val court = courtRepository.findById(request.courtId!!)
             .orElseThrow { IllegalArgumentException("Court not found.") }
-        val bookings = bookingRepository.findByCourtIdAndDate(request.courtId, request.date)
+        val bookings = bookingRepository.findByCourtIdAndDate(request.courtId!!, request.date)
         val newStart = LocalTime.parse(request.startTime)
         val newEnd = LocalTime.parse(request.endTime)
 
