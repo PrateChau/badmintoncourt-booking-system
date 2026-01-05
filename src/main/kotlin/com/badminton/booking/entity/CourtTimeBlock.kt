@@ -6,7 +6,7 @@ import jakarta.persistence.*
 @Table(name = "court_time_blocks")
 data class CourtTimeBlock(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    val id: Long? = null,
 
     @ManyToOne
     @JoinColumn(name = "court_id", nullable = false)
