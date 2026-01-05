@@ -1,6 +1,6 @@
 package com.badminton.booking.dto
 
-data class CourtBriefResponse(
+data class CourtListItem(
     val id: Long?,
     val name: String,
     val openTime: String,
