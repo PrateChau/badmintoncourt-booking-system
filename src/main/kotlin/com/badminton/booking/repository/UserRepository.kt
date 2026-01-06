@@ -7,4 +7,6 @@ interface UserRepository : JpaRepository<User, Long> {
     fun findByMobileNumberAndRole(mobileNumber: String, role: String): User?
 
     fun findByMobileNumber(mobileNumber: String): User?
+
+    fun existsByMobileNumber(mobileNumber: String): Boolean
 }
