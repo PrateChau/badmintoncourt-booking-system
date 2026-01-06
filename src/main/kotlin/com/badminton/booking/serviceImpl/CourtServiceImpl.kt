@@ -1,11 +1,15 @@
 package com.badminton.booking.serviceImpl
 
+import com.badminton.booking.dto.CourtDto
 import com.badminton.booking.dto.CourtSlotsDayResponse
+import com.badminton.booking.dto.CreateCourtRequest
 import com.badminton.booking.dto.SlotInfo
 import com.badminton.booking.entity.BookingStatus
+import com.badminton.booking.entity.Court
 import com.badminton.booking.repository.BookingRepository
 import com.badminton.booking.repository.CourtRepository
 import com.badminton.booking.repository.CourtTimeBlockRepository
+import com.badminton.booking.repository.LocationRepository
 import com.badminton.booking.service.CourtService
 import org.springframework.stereotype.Service
 import java.time.LocalDate
@@ -15,6 +19,7 @@ import java.time.format.DateTimeFormatter
 @Service
 class CourtServiceImpl(
     private val courtRepository: CourtRepository,
+    private val locationRepository: LocationRepository,
     private val bookingRepository: BookingRepository,
     private val courtTimeBlockRepository: CourtTimeBlockRepository
 ) : CourtService {
@@ -60,5 +65,28 @@ class CourtServiceImpl(
             date = date.plusDays(1)
         }
         return days
+    }
+
+    override fun addCourtToLocation(
+        locationId: Long,
+        request: CreateCourtRequest
+    ): CourtDto {
+        val location = locationRepository.findById(locationId)
+            .orElseThrow { IllegalArgumentException("Location not found with id $locationId") }
+
+        val court = Court(
+            name = request.name,
+            openTime = request.openTime,
+            closeTime = request.closeTime,
+            location = location
+        )
+        val saved = courtRepository.save(court)
+        return CourtDto(
+            id = saved.id!!,
+            name = saved.name,
+            openTime = saved.openTime,
+            closeTime = saved.closeTime,
+            locationId = location.id!!
+        )
     }
 }
