@@ -45,7 +45,7 @@ class CourtBookingController(
         parameters = [
             Parameter(name = "courtId", description = "ID of the court", required = true),
             Parameter(name = "date", description = "Date in YYYY-MM-DD format", required = true),
-            Parameter(name = "duration", description = "Duration of the slot in minutes", required = true)
+            Parameter(name = "duration", description = "Duration of the slot in hours", required = true)
         ]
     )
     @GetMapping("/courts/{courtId}/slots")
