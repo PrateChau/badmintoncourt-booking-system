@@ -2,9 +2,12 @@ package com.badminton.booking.serviceImpl
 
 import com.badminton.booking.dto.BookingBrief
 import com.badminton.booking.dto.CancelBookingResponse
+import com.badminton.booking.dto.CreateUserRequest
 import com.badminton.booking.dto.UserBookingResponse
+import com.badminton.booking.dto.UserDto
 import com.badminton.booking.entity.Booking
 import com.badminton.booking.entity.BookingStatus
+import com.badminton.booking.entity.User
 import com.badminton.booking.repository.BookingRepository
 import com.badminton.booking.repository.UserRepository
 import com.badminton.booking.service.UserService
@@ -68,5 +71,23 @@ class UserServiceImpl(
         val bookingDateTime = LocalDateTime.of(bookingDate, bookingStart)
         val now = LocalDateTime.now()
         return bookingDateTime.isAfter(now.plusHours(4))
+    }
+
+    override fun createUser(request: CreateUserRequest): UserDto {
+        if (userRepository.existsByMobileNumber(request.mobileNumber)) {
+            throw IllegalArgumentException("User with this mobile number already exists")
+        }
+        val user = User(
+            name = request.name,
+            mobileNumber = request.mobileNumber,
+            role = request.role
+        )
+        val saved = userRepository.save(user)
+        return UserDto(
+            id = saved.id!!,
+            name = saved.name,
+            mobileNumber = saved.mobileNumber,
+            role = saved.role
+        )
     }
 }
