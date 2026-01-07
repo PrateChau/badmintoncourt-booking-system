@@ -8,6 +8,7 @@ import com.badminton.booking.dto.UserDto
 import com.badminton.booking.service.UserService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -52,7 +53,7 @@ class UserController(
         description = "Create User or Admin"
     )
     @PostMapping
-    fun createUser(@RequestBody request: CreateUserRequest): ResponseEntity<UserDto> =
+    fun createUser(@RequestBody @Valid request: CreateUserRequest): ResponseEntity<UserDto> =
         try {
             val user = userService.createUser(request)
             ResponseEntity.status(HttpStatus.CREATED).body(user)

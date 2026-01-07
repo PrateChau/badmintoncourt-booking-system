@@ -8,6 +8,8 @@ import com.badminton.booking.service.CourtService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Pattern
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -25,7 +27,9 @@ class AdminController(
     @GetMapping("/locations")
     fun getLocationsForAdmin(
         @Parameter(description = "Admin's mobile number", required = true)
-        @RequestParam mobileNumber: String
+        @RequestParam
+        @Pattern(regexp = "\\d{10}", message = "must contain 10 characters")
+        mobileNumber: String
     ): List<AdminLocationResponse> =
         adminService.getAdminLocations(mobileNumber)
 
